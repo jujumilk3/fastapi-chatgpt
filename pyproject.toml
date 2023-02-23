@@ -10,8 +10,20 @@ packages = [{include = "fastapi_chatgpt"}]
 python = "^3.10"
 fastapi = "^0.92.0"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
-
+revchatgpt = "^2.3.6"
+python-dotenv = "^0.21.1"
+loguru = "^0.6.0"
+black = "^23.1.0"
+isort = "^5.12.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+
+[tool.isort]
+line_length = 120
+profile = "black"
