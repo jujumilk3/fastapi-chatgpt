@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["jujumilk3 <jujumilk3@gmail.com>"]
 readme = "README.md"
-packages = [{include = "fastapi_chatgpt"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

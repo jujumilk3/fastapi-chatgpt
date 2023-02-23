@@ -1,4 +1,4 @@
-from loguru import logger
+from fastapi import HTTPException, status
 from revChatGPT.V1 import Chatbot
 
 from app.config import OPENAPI_ACCESS_TOKEN, OPENAPI_EMAIL, OPENAPI_PASSWORD, OPENAPI_SESSION_TOKEN
@@ -31,8 +31,9 @@ def chat(prompt: str) -> Answer:
     response = None
     if not GlobalStorage.chatbot:
         init_chatbot()
+    if not GlobalStorage.chatbot:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Chatbot not initialized")
     for data in GlobalStorage.chatbot.ask(prompt):
-        logger.info(data)
         response = data
     return Answer(**response)
 
@@ -40,6 +41,7 @@ def chat(prompt: str) -> Answer:
 def chat_ws(prompt: str):
     if not GlobalStorage.chatbot:
         init_chatbot()
+    if not GlobalStorage.chatbot:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Chatbot not initialized")
     for data in GlobalStorage.chatbot.ask(prompt):
-        logger.info(data)
         yield data["message"]
